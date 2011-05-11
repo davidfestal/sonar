@@ -1,9 +1,9 @@
-<h1><%= @rule.name %></h1>
+<h1><%= @rule.name(true) %></h1>
 <div class="subtitle">
 Plugin: <%= @rule.plugin_name -%>&nbsp;&nbsp;&nbsp;
 Key: <%= @rule.plugin_rule_key %></div>
 <div class="doc">
-  <p><%= @rule.description %></p>
+  <p><%= @rule.description(true) %></p>
 </div>
 
 <% unless @rule.parameters.empty? %>

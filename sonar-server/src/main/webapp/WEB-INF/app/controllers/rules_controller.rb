@@ -29,7 +29,7 @@ class RulesController < ApplicationController
     else
       @rule=Rule.find(key)
     end
-    @page_title=@rule.name
+    @page_title=@rule.name(true)
   end
 
 end

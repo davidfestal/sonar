@@ -23,12 +23,12 @@
   <ul class="tabs" >
   <% if request.xhr? %>
     <% @extensions.each do |extension| %>
-      <li><a href="#" onclick="loadAjaxTab('<%= @resource.id -%>','<%= extension.getId() -%>',<%= display_title -%>)" class="<%= 'selected' if @extension && @extension.getId()==extension.getId() -%>"><%= extension.getTitle() -%></a></li>
+      <li><a href="#" onclick="loadAjaxTab('<%= @resource.id -%>','<%= extension.getId() -%>',<%= display_title -%>)" class="<%= 'selected' if @extension && @extension.getId()==extension.getId() -%>"><%= extension.getTitle(I18nHelper.java_locale) -%></a></li>
     <% end %>
   <% else %>
     <script>function loadTab(url) {$('resource-loading').show();document.location.href=url;return false;}</script>
     <% @extensions.each do |extension| %>
-      <li><a href="#" onClick="loadTab('<%= url_for(:overwrite_params => {:tab => extension.getId(), :metric => nil}) -%>')" class="<%= 'selected' if @extension && @extension.getId()==extension.getId() -%>"><%= extension.getTitle() -%></a></li>
+      <li><a href="#" onClick="loadTab('<%= url_for(:overwrite_params => {:tab => extension.getId(), :metric => nil}) -%>')" class="<%= 'selected' if @extension && @extension.getId()==extension.getId() -%>"><%= extension.getTitle(I18nHelper.java_locale) -%></a></li>
     <% end %>
   <% end %>
   <li>

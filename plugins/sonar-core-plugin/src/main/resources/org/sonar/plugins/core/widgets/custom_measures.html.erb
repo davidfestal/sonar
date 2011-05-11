@@ -28,12 +28,12 @@
    </script>
  <%
     measures.each do |m|
-       html_name_id = "review_name_#{m.metric.short_name}"
-       html_value_id = "review_value_#{m.metric.short_name}"
-       html_date_id = "review_date_#{m.metric.short_name}"
+       html_name_id = "review_name_#{m.metric.short_name(true)}"
+       html_value_id = "review_value_#{m.metric.short_name(true)}"
+       html_date_id = "review_date_#{m.metric.short_name(true)}"
  %>
  <div class="dashbox">
-    <h3 id='<%= html_name_id %>'><%= m.metric.short_name %></h3>
+    <h3 id='<%= html_name_id %>'><%= m.metric.short_name(true) %></h3>
     <p><span id='<%= html_value_id %>' class="big">
        <%= format_measure(m, :suffix => '', :url => m.url) -%>
         </span></p>
@@ -46,8 +46,8 @@
         <% end %>
       </p>
       <% end %>
-      <% unless m.description.blank? %>
-      <p><%= m.description %></p>
+      <% unless m.description(true).blank? %>
+      <p><%= m.description(true) %></p>
       <% end %>
  </div>
  <% end %>

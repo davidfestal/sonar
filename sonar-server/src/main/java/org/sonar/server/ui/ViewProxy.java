@@ -19,11 +19,14 @@
  */
 package org.sonar.server.ui;
 
+import java.util.Locale;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.sonar.api.i18n.I18n;
 import org.sonar.api.utils.AnnotationUtils;
 import org.sonar.api.web.*;
 
@@ -120,6 +123,16 @@ public class ViewProxy<V extends View> implements Comparable<ViewProxy> {
 
   public String getDescription() {
     return description;
+  }
+
+  public String getTitle(Locale locale) {
+    I18n i18n = JRubyFacade.getInstance().getI18n(); 
+    return i18n.translation(locale, "view." + view.getId() + ".title", view.getTitle());
+  }
+
+  public String getDescription(Locale locale) {
+    I18n i18n = JRubyFacade.getInstance().getI18n(); 
+    return i18n.translation(locale, "view." + view.getId() + ".description", description);
   }
 
   public WidgetProperty[] getWidgetProperties() {

@@ -4,7 +4,7 @@
   <table class="spaced admin" style="padding: 5px">
       
       <%  review_metrics = [''] + @review_types.collect do |metric|
-            ["#{metric.short_name}", metric.id]
+            ["#{metric.short_name(true)}", metric.id]
           end
           if review_metrics.size>0 %>
        <tr>

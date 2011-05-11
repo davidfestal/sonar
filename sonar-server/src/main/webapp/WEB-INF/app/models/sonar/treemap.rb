@@ -82,9 +82,9 @@ class Sonar::Treemap
     
   def get_html_tooltip(snapshot, size_measure, color_measure)
     html = "<table>"
-    html += "<tr><td align=left>#{escape_javascript(@size_metric.short_name)}</td><td align=right><b>#{escape_javascript(size_measure ? size_measure.formatted_value : '-')}</b></td></tr>"
+    html += "<tr><td align=left>#{escape_javascript(@size_metric.short_name(true))}</td><td align=right><b>#{escape_javascript(size_measure ? size_measure.formatted_value : '-')}</b></td></tr>"
     if color_measure
-      html += "<tr><td align=left>#{escape_javascript(@color_metric.short_name)}</td><td align=right><b>#{escape_javascript(color_measure ? color_measure.formatted_value : '-')}</b></td></tr>"
+      html += "<tr><td align=left>#{escape_javascript(@color_metric.short_name(true))}</td><td align=right><b>#{escape_javascript(color_measure ? color_measure.formatted_value : '-')}</b></td></tr>"
     end
     html += "</table>"
     html

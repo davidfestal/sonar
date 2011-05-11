@@ -119,41 +119,42 @@ class Sonar::ComponentsConfiguration
     if @@available_columns.nil?
       @@available_columns = {}
 
-      @@available_columns[DEFAULT_DOMAIN] = []
+      i18n_default_domain = Metric.i18n_domain_for(DEFAULT_DOMAIN)
+      @@available_columns[i18n_default_domain] = []
       col = Sonar::ColumnsView.new
-      col.name = "Links"
       col.id = 'links'
+      col.name = I18nHelper.trans_column(col.id, "Links")
       col.col_type = Sonar::ColumnsView::TYPE_LINKS
-      @@available_columns[DEFAULT_DOMAIN] << col
+      @@available_columns[i18n_default_domain] << col
 
       col = Sonar::ColumnsView.new
-      col.name = "Build time"
       col.id = 'build_time'
+      col.name = I18nHelper.trans_column(col.id, "Build time")
       col.col_type = Sonar::ColumnsView::TYPE_BUILD_TIME
-      @@available_columns[DEFAULT_DOMAIN] << col
+      @@available_columns[i18n_default_domain] << col
 
       col = Sonar::ColumnsView.new
-      col.name = "Language"
       col.id = 'language'
+      col.name = I18nHelper.trans_column(col.id, "Language")
       col.col_type = Sonar::ColumnsView::TYPE_LANGUAGE
-      @@available_columns[DEFAULT_DOMAIN] << col
+      @@available_columns[i18n_default_domain] << col
 
       col = Sonar::ColumnsView.new
-      col.name = "Version"
       col.id = 'version'
+      col.name = I18nHelper.trans_column(col.id, "Version")
       col.col_type = Sonar::ColumnsView::TYPE_VERSION
-      @@available_columns[DEFAULT_DOMAIN] << col
+      @@available_columns[i18n_default_domain] << col
       
       Metric.all.select {|m| m.display?}.each do |metric|
         col = Sonar::ColumnsView.new
-        col.name = metric.short_name
+        col.name = metric.short_name(true)
         col.id = metric.name
         col.col_type = Sonar::ColumnsView::TYPE_METRIC
 
         if col.name
-          if metric.domain
-            @@available_columns[metric.domain] ||= []
-            @@available_columns[metric.domain] << col
+          if metric.domain(true)
+            @@available_columns[metric.domain(true)] ||= []
+            @@available_columns[metric.domain(true)] << col
           end
         end
       end

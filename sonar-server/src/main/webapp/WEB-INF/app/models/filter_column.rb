@@ -39,21 +39,21 @@ class FilterColumn < ActiveRecord::Base
 
   def name
     if on_metric?
-      metric ? metric.short_name : kee
+      metric ? metric.short_name(true) : kee
     else
       case family
       when 'date'
-        'Build date'
+        I18nHelper.trans_column('date', 'Build date')
       when 'language'
-        'Language'
+        I18nHelper.trans_column('language', 'Language')
       when 'name'
-        'Name'
+        I18nHelper.trans_column('name', 'Name')
       when 'links'
-        'Links'
+        I18nHelper.trans_column('links', 'Links')        
       when 'version'
-        'Version'
+        I18nHelper.trans_column('version', 'Version')        
       when 'key'
-        'Key'
+        I18nHelper.trans_column('key', 'Key')        
       else
         kee
       end
@@ -62,21 +62,21 @@ class FilterColumn < ActiveRecord::Base
 
   def display_name
     if on_metric?
-      metric ? metric.short_name : kee
+      metric ? metric.short_name(true) : kee
     else
       case family
       when 'date'
-        'Build date'
+        I18nHelper.trans_column('date', 'Build date')
       when 'language'
-        'Language'
+        I18nHelper.trans_column('language', 'Language')
       when 'name'
-        'Name'
+        I18nHelper.trans_column('name', 'Name')
       when 'links'
-        'Links'
+        I18nHelper.trans_column('links', 'Links')        
       when 'version'
-        'Version'
+        I18nHelper.trans_column('version', 'Version')        
       when 'key'
-        'Key'
+        I18nHelper.trans_column('key', 'Key')        
       else
         kee
       end

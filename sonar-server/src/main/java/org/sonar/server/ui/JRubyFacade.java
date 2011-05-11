@@ -24,6 +24,7 @@ import org.picocontainer.PicoContainer;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.Plugins;
 import org.sonar.api.Property;
+import org.sonar.api.i18n.I18n;
 import org.sonar.api.profiles.ProfileExporter;
 import org.sonar.api.profiles.ProfileImporter;
 import org.sonar.api.resources.Language;
@@ -56,6 +57,7 @@ import java.util.Set;
 public final class JRubyFacade {
 
   private static final JRubyFacade SINGLETON = new JRubyFacade();
+  private I18n i18n;
 
   public static JRubyFacade getInstance() {
     return SINGLETON;
@@ -313,6 +315,15 @@ public final class JRubyFacade {
       component = container.getComponent(componentClass);
     }
     return component;
+  }
+
+  public I18n getI18n()
+  {
+    if (i18n == null)
+    {
+      i18n = getContainer().getComponent(I18n.class);
+    }
+    return i18n;
   }
 
   public PicoContainer getContainer() {

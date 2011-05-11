@@ -34,11 +34,11 @@ class Sonar::TimemachineRow
   end
 
   def domain
-    @metric.domain.nil? ? "" : @metric.domain
+    @metric.domain(true).nil? ? "" : @metric.domain(true)
   end
 
   def <=>(other)
-    (self.domain <=> other.domain).nonzero? || (self.metric.short_name <=> other.metric.short_name)
+    (self.domain <=> other.domain).nonzero? || (self.metric.short_name(true) <=> other.metric.short_name(true))
   end
 
   def sparkline_url

@@ -13,10 +13,10 @@
 
   <select id="alert_metric_id" name="alert[metric_id]" onChange="javascript:selectMetric()">
     <option value="" <%= 'selected' if @alert.metric.nil? %>>Select a metric</option>
-  <% Metric.domains.each do |domain| %>
+  <% Metric.domains(true).each do |domain| %>
   <optgroup label="<%= h domain -%>">
-    <% Metric.by_domain(domain).select{|m| m.alertable? }.each do |metric| %>
-      <option value="<%= metric.id -%>" <%= 'selected' if @alert.metric_id==metric.id -%>><%= metric.short_name %></option>
+    <% Metric.by_domain(domain, true).select{|m| m.alertable? }.sort {|x,y| x.short_name(true) <=> y.short_name(true) }.each do |metric| %>
+      <option value="<%= metric.id -%>" <%= 'selected' if @alert.metric_id==metric.id -%>><%= metric.short_name(true) %></option>
     <% end %>
   </optgroup>
   <% end %>

@@ -11,12 +11,12 @@
       <% if logged_in? %>
       <li>
       <img src="<%= ApplicationController.root_context -%>/images/user.gif"/><a href="<%= ApplicationController.root_context -%>/account/index"><%= current_user.name(true) -%></a>
-      &raquo; <a href="<%= ApplicationController.root_context -%>/sessions/logout">Log out</a>
+      &raquo; <a href="<%= ApplicationController.root_context -%>/sessions/logout"><%=I18nHelper.trans_app_view("layouts.layout", "logout", "Log out")%></a>
       </li>
       <% else %>
-      <li><a href="<%= ApplicationController.root_context -%>/sessions/new">Log in</a></li>
+      <li><a href="<%= ApplicationController.root_context -%>/sessions/new"><%=I18nHelper.trans_app_view("layouts.layout", "login", "Log in")%></a></li>
       <% end %>
-      <li><a href="<%= ApplicationController.root_context -%>/profiles">Configuration</a></li>
+      <li><a href="<%= ApplicationController.root_context -%>/profiles"><%=I18nHelper.trans_app_view("layouts.layout", "configuration", "Configuration")%></a></li>
     </ol>
 
   </div>
@@ -25,61 +25,61 @@
        <div id="sidebar">
         <ul>
         <% if selected_section==Navigation::SECTION_HOME %>
-          <li class="<%= 'selected' if controller.controller_path=='filters' -%>"><a href="<%= ApplicationController.root_context -%>/filters/index">Filters</a></li>
-          <li class="<%= 'selected' if controller.controller_path=='reviews' -%>"><a href="<%= ApplicationController.root_context -%>/reviews/index">Reviews</a></li>
-          <li class="<%= 'selected' if controller.controller_path=='dependencies' -%>"><a href="<%= ApplicationController.root_context -%>/dependencies/index">Dependencies</a></li>
+          <li class="<%= 'selected' if controller.controller_path=='filters' -%>"><a href="<%= ApplicationController.root_context -%>/filters/index"><%=I18nHelper.trans_app_view("layouts.layout", "filters", "Filters")%></a></li>
+          <li class="<%= 'selected' if controller.controller_path=='reviews' -%>"><a href="<%= ApplicationController.root_context -%>/reviews/index"><%=I18nHelper.trans_app_view("layouts.layout", "reviews", "Reviews")%></a></li>
+          <li class="<%= 'selected' if controller.controller_path=='dependencies' -%>"><a href="<%= ApplicationController.root_context -%>/dependencies/index"><%=I18nHelper.trans_app_view("layouts.layout", "dependencies", "Dependencies")%></a></li>
 
           <% controller.java_facade.getPages(Navigation::SECTION_HOME, nil, nil, nil).each do |page|
                selected=request.request_uri.include?("/plugins/home/#{page.getId()}") %>
-          <li class="<%= 'selected' if selected -%>"><a href="<%= ApplicationController.root_context -%>/plugins/home/<%= page.getId() -%>"><%= page.getTitle()-%></a></li>
+          <li class="<%= 'selected' if selected -%>"><a href="<%= ApplicationController.root_context -%>/plugins/home/<%= page.getId() -%>"><%= page.getTitle(I18nHelper.java_locale)-%></a></li>
           <% end %>
 
         <% elsif (selected_section==Navigation::SECTION_RESOURCE) %>
           <% ActiveDashboard.user_dashboards(current_user).each do |active_dashboard| %>
             <li class="<%= 'selected' if @dashboard && controller.controller_path=='dashboard' &&  active_dashboard.dashboard_id==@dashboard.id -%>"><a href="<%= ApplicationController.root_context -%>/dashboard/index/<%= @project.id -%>?did=<%= active_dashboard.dashboard_id -%>"><%= active_dashboard.dashboard.name -%></a></li>
           <% end %>
-          <li class="<%= 'selected' if request.request_uri.include?('/components/index') -%>"><a href="<%= ApplicationController.root_context -%>/components/index/<%= @project.id -%>">Components</a></li>
-          <li class="<%= 'selected' if request.request_uri.include?('/drilldown/violations') -%>"><a href="<%= ApplicationController.root_context -%>/drilldown/violations/<%= @project.id -%>">Violations drilldown</a></li>
-          <li class="<%= 'selected' if controller.controller_path=='timemachine' -%>"><a href="<%= ApplicationController.root_context -%>/timemachine/index/<%= @project.id -%>">Time machine</a></li>
+          <li class="<%= 'selected' if request.request_uri.include?('/components/index') -%>"><a href="<%= ApplicationController.root_context -%>/components/index/<%= @project.id -%>"><%=I18nHelper.trans_app_view("layouts.layout", "components", "Components")%></a></li>
+          <li class="<%= 'selected' if request.request_uri.include?('/drilldown/violations') -%>"><a href="<%= ApplicationController.root_context -%>/drilldown/violations/<%= @project.id -%>"><%=I18nHelper.trans_app_view("layouts.layout", "violations_drilldown", "Violations drilldown")%></a></li>
+          <li class="<%= 'selected' if controller.controller_path=='timemachine' -%>"><a href="<%= ApplicationController.root_context -%>/timemachine/index/<%= @project.id -%>"><%=I18nHelper.trans_app_view("layouts.layout", "time_machine", "Time machine")%></a></li>
           <% controller.java_facade.getPages(Navigation::SECTION_RESOURCE, @project.scope, @project.qualifier, @project.language).each do |page| %>
-          <li class="<%= 'selected' if request.request_uri.include?("page=#{page.getId()}") -%>"><a href="<%= ApplicationController.root_context -%>/plugins/resource/<%= @project.id-%>?page=<%= page.getId() -%>"><%= page.getTitle() %></a></li>
+          <li class="<%= 'selected' if request.request_uri.include?("page=#{page.getId()}") -%>"><a href="<%= ApplicationController.root_context -%>/plugins/resource/<%= @project.id-%>?page=<%= page.getId() -%>"><%= page.getTitle(I18nHelper.java_locale) %></a></li>
           <% end %>
           <% if has_role?(:admin, @project) && @project.set? %>
             <li class="h2">System</li>
             <% if (@project.project? || @project.module?) %>
-              <li class="<%= 'selected' if request.request_uri.include?('/project/settings') -%>"><a href="<%= ApplicationController.root_context -%>/project/settings/<%= @project.id -%>">Settings</a></li>
+              <li class="<%= 'selected' if request.request_uri.include?('/project/settings') -%>"><a href="<%= ApplicationController.root_context -%>/project/settings/<%= @project.id -%>"><%=I18nHelper.trans_app_view("layouts.layout", "settings", "Settings")%></a></li>
             <% end %>
             <% if (@project.project? || @project.view? || @project.subview?) %>
-              <li class="<%= 'selected' if request.request_uri.include?('/project_roles') -%>"><a href="<%= ApplicationController.root_context -%>/project_roles/index?resource=<%= @project.id -%>">Project roles</a></li>
+              <li class="<%= 'selected' if request.request_uri.include?('/project_roles') -%>"><a href="<%= ApplicationController.root_context -%>/project_roles/index?resource=<%= @project.id -%>"><%=I18nHelper.trans_app_view("layouts.layout", "project_roles", "Project roles")%></a></li>
             <% end %>
           <% end %>
 
         <% elsif selected_section==Navigation::SECTION_CONFIGURATION %>
 
-          <li class="<%= 'selected' if request.request_uri.include?('/profiles') || request.request_uri.include?('/rules_configuration') -%>"><a href="<%= ApplicationController.root_context -%>/profiles">Quality profiles</a></li>
+          <li class="<%= 'selected' if request.request_uri.include?('/profiles') || request.request_uri.include?('/rules_configuration') -%>"><a href="<%= ApplicationController.root_context -%>/profiles"><%=I18nHelper.trans_app_view("layouts.layout", "quality_profiles", "Quality profiles")%></a></li>
             <% if is_admin? %>
-              <li class="<%= 'selected' if controller.controller_path=='event_categories' -%>"><a href="<%= ApplicationController.root_context -%>/event_categories/index">Event categories</a></li>
-              <li class="<%= 'selected' if controller.controller_path=='metrics' -%>"><a href="<%= ApplicationController.root_context -%>/metrics/index">Manual metrics</a></li>
-              <li class="<%= 'selected' if controller.controller_path=='admin_filters' -%>"><a href="<%= ApplicationController.root_context -%>/admin_filters/index">Default filters</a></li>
-              <li class="<%= 'selected' if controller.controller_path=='admin_dashboards' -%>"><a href="<%= ApplicationController.root_context -%>/admin_dashboards/index">Default dashboards</a></li>                  
-              <li class="<%= 'selected' if controller.controller_path=='account' -%>"><a href="<%= ApplicationController.root_context -%>/account/index">My profile</a></li>
+              <li class="<%= 'selected' if controller.controller_path=='event_categories' -%>"><a href="<%= ApplicationController.root_context -%>/event_categories/index"><%=I18nHelper.trans_app_view("layouts.layout", "event_categories", "Event categories")%></a></li>
+              <li class="<%= 'selected' if controller.controller_path=='metrics' -%>"><a href="<%= ApplicationController.root_context -%>/metrics/index"><%=I18nHelper.trans_app_view("layouts.layout", "manual_metrics", "Manual metrics")%></a></li>
+              <li class="<%= 'selected' if controller.controller_path=='admin_filters' -%>"><a href="<%= ApplicationController.root_context -%>/admin_filters/index"><%=I18nHelper.trans_app_view("layouts.layout", "default_filters", "Default filters")%></a></li>
+              <li class="<%= 'selected' if controller.controller_path=='admin_dashboards' -%>"><a href="<%= ApplicationController.root_context -%>/admin_dashboards/index"><%=I18nHelper.trans_app_view("layouts.layout", "default_dashboards", "Default dashboards")%></a></li>                  
+              <li class="<%= 'selected' if controller.controller_path=='account' -%>"><a href="<%= ApplicationController.root_context -%>/account/index"><%=I18nHelper.trans_app_view("layouts.layout", "my_profile", "My profile")%></a></li>
               <% controller.java_facade.getPages(Navigation::SECTION_CONFIGURATION, nil,nil, nil).each do |page| %>
-                <li class="<%= 'selected' if request.request_uri.include?("plugins/configuration/#{page.getId()}") -%>"><a href="<%= ApplicationController.root_context -%>/plugins/configuration/<%= page.getId() -%>"><%= page.getTitle() %></a></li>
+                <li class="<%= 'selected' if request.request_uri.include?("plugins/configuration/#{page.getId()}") -%>"><a href="<%= ApplicationController.root_context -%>/plugins/configuration/<%= page.getId() -%>"><%= page.getTitle(I18nHelper.java_locale) %></a></li>
               <% end %>
 
-              <li class="h2">Security</li>
-              <li class="<%= 'selected' if request.request_uri.include?('/users') -%>"><a href="<%= ApplicationController.root_context -%>/users">Users</a></li>
-              <li class="<%= 'selected' if request.request_uri.include?('/groups') -%>"><a href="<%= ApplicationController.root_context -%>/groups/index">Groups</a></li>
-              <li class="<%= 'selected' if request.request_uri.include?('/roles/global') -%>"><a href="<%= ApplicationController.root_context -%>/roles/global">Global roles</a></li>
-              <li class="<%= 'selected' if request.request_uri.include?('/roles/projects') -%>"><a href="<%= ApplicationController.root_context -%>/roles/projects">Project roles</a></li>
+              <li class="h2"><%=I18nHelper.trans_app_view("layouts.layout", "security", "Security")%></li>
+              <li class="<%= 'selected' if request.request_uri.include?('/users') -%>"><a href="<%= ApplicationController.root_context -%>/users"><%=I18nHelper.trans_app_view("layouts.layout", "users", "Users")%></a></li>
+              <li class="<%= 'selected' if request.request_uri.include?('/groups') -%>"><a href="<%= ApplicationController.root_context -%>/groups/index"><%=I18nHelper.trans_app_view("layouts.layout", "groups", "Groups")%></a></li>
+              <li class="<%= 'selected' if request.request_uri.include?('/roles/global') -%>"><a href="<%= ApplicationController.root_context -%>/roles/global"><%=I18nHelper.trans_app_view("layouts.layout", "global_roles", "Global roles")%></a></li>
+              <li class="<%= 'selected' if request.request_uri.include?('/roles/projects') -%>"><a href="<%= ApplicationController.root_context -%>/roles/projects"><%=I18nHelper.trans_app_view("layouts.layout", "project_roles", "Project roles")%></a></li>
 
-              <li class="h2">System</li>
-              <li class="<%= 'selected' if request.request_uri.include?('/settings') -%>"><a href="<%= ApplicationController.root_context -%>/settings/index">Settings</a></li>
-              <li class="<%= 'selected' if controller.controller_path=='backup' -%>"><a href="<%= ApplicationController.root_context -%>/backup">Backup</a></li>
-              <li class="<%= 'selected' if controller.controller_path=='system' -%>"><a href="<%= ApplicationController.root_context -%>/system">System Info</a></li>
+              <li class="h2"><%=I18nHelper.trans_app_view("layouts.layout", "system", "System")%></li>
+              <li class="<%= 'selected' if request.request_uri.include?('/settings') -%>"><a href="<%= ApplicationController.root_context -%>/settings/index"><%=I18nHelper.trans_app_view("layouts.layout", "settings", "Settings")%></a></li>
+              <li class="<%= 'selected' if controller.controller_path=='backup' -%>"><a href="<%= ApplicationController.root_context -%>/backup"><%=I18nHelper.trans_app_view("layouts.layout", "backup", "Backup")%></a></li>
+              <li class="<%= 'selected' if controller.controller_path=='system' -%>"><a href="<%= ApplicationController.root_context -%>/system"><%=I18nHelper.trans_app_view("layouts.layout", "system_info", "System Info")%></a></li>
               <% update_center_activated = controller.java_facade.getConfigurationValue('sonar.updatecenter.activate') || 'true';
               if update_center_activated=='true' %>
-                <li class="<%= 'selected' if controller.controller_path=='updatecenter' -%>"><a href="<%= ApplicationController.root_context -%>/updatecenter">Update Center</a></li>
+                <li class="<%= 'selected' if controller.controller_path=='updatecenter' -%>"><a href="<%= ApplicationController.root_context -%>/updatecenter"><%=I18nHelper.trans_app_view("layouts.layout", "update_center", "Update Center")%></a></li>
               <% end %>
             <% end %>
 

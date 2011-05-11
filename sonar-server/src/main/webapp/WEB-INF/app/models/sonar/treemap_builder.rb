@@ -28,13 +28,13 @@ class Sonar::TreemapBuilder
     exclude_user_managed=options[:exclude_user_managed]||false
     Metric.all.select{ |metric| 
       metric.treemap_size? && (!exclude_user_managed || !metric.user_managed?)
-    }.sort
+    }.sort {|x,y| x.short_name(true) <=> y.short_name(true) }
   end
 
   def self.color_metrics
     Metric.all.select{ |metric|
       metric.treemap_color?
-    }.sort
+    }.sort {|x,y| x.short_name(true) <=> y.short_name(true) }
   end
   
   def self.build(snapshots, width=DEFAULT_WIDTH, height=DEFAULT_HEIGHT, size_metric_key=nil, color_metric_key=nil)

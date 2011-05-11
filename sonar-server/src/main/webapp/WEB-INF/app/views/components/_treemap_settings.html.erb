@@ -14,7 +14,7 @@ remote_form_for :treemap, :url => url_params, :html => { :id => 'tm_form', :meth
 <table class="spaced">
 <tr>
     <td valign="bottom">
-      <span class="comments">Size</span>
+      <span class="comments"><%=I18nHelper.trans_app_view("components.treemap_settings", "size", "Size")%></span>
       <br/>
       <%= select_tag 'size_metric', options_grouped_by_domain(Sonar::TreemapBuilder.size_metrics, @treemap.size_metric.key),
         :id => 'select_size_metric', :class => 'small',:onchange => "$('submit_treemap').click();" %>
@@ -22,7 +22,7 @@ remote_form_for :treemap, :url => url_params, :html => { :id => 'tm_form', :meth
   </tr>
   <tr>
     <td>
-      <span class="comments">Color</span>&nbsp;&nbsp;
+      <span class="comments"><%=I18nHelper.trans_app_view("components.treemap_settings", "color", "Color")%></span>&nbsp;&nbsp;
       <span id="treemap_gradient" class="comments little">
         <%= render :partial => 'components/treemap_gradient', :locals => {:color_metric => @treemap.color_metric} %>
       </span>

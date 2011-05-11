@@ -130,7 +130,7 @@
                         <% if row.metric.numeric? %>
                             <input type="checkbox" name="metric" value="<%= row.metric.key -%>" <%= 'checked' if @metric_keys.include?(row.metric.key)  -%>/>
                         <% end %>
-                        <%= row.metric.short_name %>
+                        <%= row.metric.short_name(true) %>
                     </td>
                     <% @snapshots.each do |snapshot|
                       measure=row.measure(snapshot)
@@ -177,7 +177,7 @@
 %>
 <div style="float:left;width: 400px;text-align:center;padding-bottom: 25px;">
     <%= chart(chart_url, :id => chart_id, :alt => 'Distribution chart', :width => 360, :height => 150) -%><br/>
-    <b><%= row.metric.short_name -%></b>
+    <b><%= row.metric.short_name(true) -%></b>
 </div>
 <% end %>
 </td></tr>

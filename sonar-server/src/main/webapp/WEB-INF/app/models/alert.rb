@@ -33,7 +33,7 @@ class Alert < ActiveRecord::Base
   end
 
   def name
-    metric ? metric.short_name : ''
+    metric ? metric.short_name(true) : ''
   end
 
   def <=>(other)

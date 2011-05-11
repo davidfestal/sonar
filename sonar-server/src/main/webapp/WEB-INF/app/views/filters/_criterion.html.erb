@@ -8,10 +8,10 @@
 </script>
 <select name="criteria[<%= id -%>][metric_id]" id="metric-<%= id -%>">
   <option value="">Select a metric</option>
-  <% Metric.domains.each do |domain| %>
+  <% Metric.domains(true).each do |domain| %>
     <optgroup label="<%= h domain -%>">
-    <% Metric.by_domain(domain).select{|m| !m.data? && !m.hidden?}.each do |metric| %>
-      <option value="<%= metric.id -%>" <%= 'selected' if (criterion && criterion.metric==metric) -%>><%= metric.short_name %></option>
+    <% Metric.by_domain(domain, true).select{|m| !m.data? && !m.hidden?}.sort {|x,y| x.short_name(true) <=> y.short_name(true) }.each do |metric| %>
+      <option value="<%= metric.id -%>" <%= 'selected' if (criterion && criterion.metric==metric) -%>><%= metric.short_name(true) %></option>
     <% end %>
     </optgroup>
   <% end %>

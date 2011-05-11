@@ -36,7 +36,7 @@ class TrendsChart
 
   def self.init_series(java_chart, metrics)
     metrics.each do |metric|
-      java_chart.initSerie(metric.id, metric.short_name, metric.val_type==Metric::VALUE_TYPE_PERCENT)
+      java_chart.initSerie(metric.id, metric.short_name(true), metric.val_type==Metric::VALUE_TYPE_PERCENT)
     end
   end
 

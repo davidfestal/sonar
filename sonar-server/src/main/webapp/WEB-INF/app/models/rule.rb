@@ -38,8 +38,8 @@ class Rule < ActiveRecord::Base
     result
   end
 
-  def priority_text
-    Sonar::RulePriority.to_s(priority)
+  def priority_text(translate=false)
+    return Sonar::RulePriority.to_s(priority, translate)
   end
 
   def key
@@ -58,6 +58,42 @@ class Rule < ActiveRecord::Base
     name<=>rule.name
   end
   
+  def name(translate=false)
+    default_string = read_attribute(:name)
+    return default_string unless translate
+    
+    rule_plugin_name = read_attribute(:plugin_name)
+    rule_plugin_rule_key = read_attribute(:plugin_rule_key)
+
+    return nil if (rule_plugin_name.nil? or rule_plugin_rule_key.nil?)
+    
+    i18n_key = 'rule.' + rule_plugin_name + '.' + rule_plugin_rule_key + '.name'   
+    result = I18nHelper.translation(i18n_key, default_string)     
+    result
+  end
+  
+  def name=(value)
+    write_attribute(:name, value)    
+  end
+  
+  def description(translate=false)
+    default_string = read_attribute(:description)
+    return default_string unless translate
+    
+    rule_plugin_name = read_attribute(:plugin_name)
+    rule_plugin_rule_key = read_attribute(:plugin_rule_key)
+    
+    return nil if (rule_plugin_name.nil? or rule_plugin_rule_key.nil?)
+    
+    i18n_key = 'rule.' + rule_plugin_name + '.' + rule_plugin_rule_key + '.description'   
+    result = I18nHelper.translation(i18n_key, default_string)     
+    result
+  end
+
+  def description=(value)
+    write_attribute(:description, value)    
+  end
+
   def config_key
     plugin_config_key
   end

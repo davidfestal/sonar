@@ -11,18 +11,18 @@
 
     <select name="column" id="select_column">
       <option value="" selected></option>
-      <% Metric.domains.each do |domain| %>
+      <% Metric.domains(true).each do |domain| %>
         <optgroup label="<%= domain -%>">
-          <% Metric.by_domain(domain).each do |metric| %>
-            <% if metric.display? %><option value="metric,<%= metric.id -%>"><%= metric.short_name -%></option><% end %>
+          <% Metric.by_domain(domain, true).select { |metric| metric.display? }.sort {|x,y| x.short_name(true) <=> y.short_name(true) }.each do |metric| %>
+            <option value="metric,<%= metric.id -%>"><%= metric.short_name(true) -%></option>
           <% end %>
-          <% if domain=='General' %>
-            <% unless @filter.column('date') %><option value="date">Build date</option><% end %>
-            <% unless @filter.column('key') %><option value="key">Key</option><% end %>
-            <% unless @filter.column('language') %><option value="language">Language</option><% end %>
-            <% unless @filter.column('links') %><option value="links">Links</option><% end %>
-            <% unless @filter.column('name') %><option value="name">Name</option><% end %>
-            <% unless @filter.column('version') %><option value="version">Version</option><% end %>
+          <% if domain==Metric.i18n_domain_for('General') %>
+            <% unless @filter.column('date') %><option value="date"><%=I18nHelper.trans_column("date", "Build date")%></option><% end %>
+            <% unless @filter.column('key') %><option value="key"><%=I18nHelper.trans_column("key", "Key")%></option><% end %>
+            <% unless @filter.column('language') %><option value="language"><%=I18nHelper.trans_column("language", "Language")%></option><% end %>
+            <% unless @filter.column('links') %><option value="links"><%=I18nHelper.trans_column("links", "Links")%></option><% end %>
+            <% unless @filter.column('name') %><option value="name"><%=I18nHelper.trans_column("name", "Name")%></option><% end %>
+            <% unless @filter.column('version') %><option value="version"><%=I18nHelper.trans_column("version", "Version")%></option><% end %>
           <% end %>
         </optgroup>
       <% end %>

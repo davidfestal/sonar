@@ -273,7 +273,7 @@ class ProjectMeasure < ActiveRecord::Base
   end
 
   def short_name
-    metric.short_name
+    metric.short_name(true)
   end
 
   def rule_priority_text
