@@ -17,17 +17,31 @@
  * License along with Sonar; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.plugins.i18n;
+package org.sonar.api.i18n;
 
-import org.junit.Test;
+import java.util.List;
+import java.util.Locale;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.number.OrderingComparisons.greaterThanOrEqualTo;
+import org.sonar.api.BatchExtension;
+import org.sonar.api.ServerExtension;
 
-public class I18nPluginTest {
+abstract public class LanguagePack implements ServerExtension, BatchExtension {
 
-  @Test
-  public void shouldGetExtensions() {
-    assertThat(new I18nPlugin().getExtensions().size(), greaterThanOrEqualTo(2));
+  @Override
+  public String toString() {
+    return new StringBuilder("Language Pack (")
+    .append(getPluginKeys().toString())
+    .append(getLocales().toString())
+    .append(')').toString();
   }
+
+  /**
+   * @return the pluginKeys
+   */
+  public abstract List<String> getPluginKeys();
+
+  /**
+   * @return the locales
+   */
+  public abstract List<Locale> getLocales();
 }

@@ -21,7 +21,9 @@
 package org.sonar.api.i18n;
 
 import java.util.Locale;
-import java.util.Properties;
+
+import org.sonar.api.BatchComponent;
+import org.sonar.api.ServerComponent;
 
 /**
  * 
@@ -137,22 +139,14 @@ import java.util.Properties;
  *
  * @since 2.9
  */
-public interface I18n {
+public interface I18n extends ServerComponent, BatchComponent {
 
   /**
    * Searches the translation of the <code>key</code> for the <code>locale</code> in the list of available bundles.
    * <br>
-   * If not found in any bundle, <code>defaultText</code> is returned. 
-   *
-   * @param locale the locale to translate into 
-   * @param key the key of the string to translate
-   * @param defaultText the default text returned when the key is not found in any bundle
-   * @return the string associated with the given key for the given locale.
-   */
-  public abstract String translation(final Locale locale, final String key, final String defaultText);
-  
-  /**
-   * Convenience method that calls {@link #translation(Locale, String, String)} and uses the result as a message pattern 
+   * If not found in any bundle, <code>defaultText</code> is returned.
+   * 
+   * If additional parameters are given (in the objects list), the result is used as a message pattern 
    * to use in a MessageFormat object along with the given parameters.  
    *
    * @param locale the locale to translate into

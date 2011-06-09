@@ -19,15 +19,17 @@
  */
 package org.sonar.plugins.i18n;
 
-import org.junit.Test;
+import org.sonar.api.web.AbstractRubyTemplate;
+import org.sonar.api.web.RubyRailsWebservice;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.number.OrderingComparisons.greaterThanOrEqualTo;
+public class I18nWebService extends AbstractRubyTemplate implements RubyRailsWebservice {
 
-public class I18nPluginTest {
+  public String getId() {
+    return "i18n_manager";
+  }
 
-  @Test
-  public void shouldGetExtensions() {
-    assertThat(new I18nPlugin().getExtensions().size(), greaterThanOrEqualTo(2));
+  @Override
+  protected String getTemplatePath() {
+    return "i18n_manager_controller.rb";
   }
 }

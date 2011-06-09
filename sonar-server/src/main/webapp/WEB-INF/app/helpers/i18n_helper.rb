@@ -24,42 +24,38 @@ module I18nHelper
   end
   
   def self.translation(key, defaultText, *objects)
-    if objects.empty?
-      return i18n.translation(java_locale(), key, defaultText)
-    else
-      return i18n.translation(java_locale(), key, defaultText, objects.to_java)
-    end
+    i18n.translation(java_locale(), key, defaultText, objects.to_java)
   end
   
   def self.trans_widget(widget, key, default_text, *objects)
-    translation("view." + widget.widget_key + "." + key, default_text, objects)
+    i18n.translation(java_locale(), "view." + widget.widget_key + "." + key, default_text, objects.to_java)
   end
 
   def self.trans_page(view_id, key, default_text, *objects)
-    translation("view." + view_id + "." + key, default_text, objects)
+    i18n.translation(java_locale(), "view." + view_id + "." + key, default_text, objects.to_java)
   end
 
   def self.trans_tab(view_id, key, default_text, *objects)
-    translation("view." + view_id + "." + key, default_text, objects)
+    i18n.translation(java_locale(), "view." + view_id + "." + key, default_text, objects.to_java)
   end
   
   def self.trans_column(column_key, default_text, *objects)
-    translation("general_columns." + column_key, default_text, objects)
+    i18n.translation(java_locale(), "general_columns." + column_key, default_text, objects.to_java)
   end
   
   def self.trans_app_view(path, key, default_text, *objects)
-    translation("app.view." + path + "." + key, default_text, objects)
+    i18n.translation(java_locale(), "app.view." + path + "." + key, default_text, objects.to_java)
   end
   
   def self.trans_app_helper(path, key, default_text, *objects)
-    translation("app.helper." + path + "." + key, default_text, objects)
+    i18n.translation(java_locale(), "app.helper." + path + "." + key, default_text, objects.to_java)
   end
   
   def self.trans_app_controller(path, key, default_text, *objects)
-    translation("app.controller." + path + "." + key, default_text, objects)
+    i18n.translation(java_locale(), "app.controller." + path + "." + key, default_text, objects.to_java)
   end
   
   def self.trans_app_model(path, key, default_text, *objects)
-    translation("app.model." + path + "." + key, default_text, objects)
+    i18n.translation(java_locale(), "app.model." + path + "." + key, default_text, objects.to_java)
   end  
 end
