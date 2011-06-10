@@ -28,6 +28,6 @@ public class I18nPluginTest {
 
   @Test
   public void shouldGetExtensions() {
-    assertThat(new I18nPlugin().getExtensions().size(), greaterThanOrEqualTo(3));
+    assertThat(new I18nPlugin().getExtensions().size(), greaterThanOrEqualTo(2));
   }
 }

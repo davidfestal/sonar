@@ -66,6 +66,11 @@ public class I18nManager implements I18n, ServerExtension, BatchExtension {
     this.languagePacks = languagePacks;
   }
 
+  public I18nManager(AbstractPluginRepository pluginProvider) {
+    this.pluginProvider = pluginProvider;
+    this.languagePacks = new LanguagePack[] {};
+  }
+  
   private Map<String, String> keys = new HashMap<String, String>();
   private Properties unknownKeys = new Properties();
 
