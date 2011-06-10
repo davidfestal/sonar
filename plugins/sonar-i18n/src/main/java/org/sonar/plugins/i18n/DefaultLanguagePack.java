@@ -19,15 +19,22 @@
  */
 package org.sonar.plugins.i18n;
 
-import org.junit.Test;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.number.OrderingComparisons.greaterThanOrEqualTo;
+import org.sonar.api.i18n.LanguagePack;
 
-public class I18nPluginTest {
+public class DefaultLanguagePack extends LanguagePack {
 
-  @Test
-  public void shouldGetExtensions() {
-    assertThat(new I18nPlugin().getExtensions().size(), greaterThanOrEqualTo(3));
+  @Override
+  public List<String> getPluginKeys() {
+    return Collections.emptyList();
   }
+
+  @Override
+  public List<Locale> getLocales() {
+    return Collections.emptyList();
+  }
+
 }

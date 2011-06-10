@@ -31,7 +31,7 @@ public class I18nPlugin extends SonarPlugin {
 
   // This is where you're going to declare all your Sonar extensions
   public List getExtensions() {
-    return Arrays.asList(I18nManager.class, I18nWebService.class);
+    return Arrays.asList(I18nManager.class, I18nWebService.class, DefaultLanguagePack.class);
   }
 
   @Override
